@@ -9,30 +9,33 @@ import javax.swing.UIManager;
 
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 
 public class App extends JFrame implements ActionListener {
-    
+    static ArrayList <Candidato> listaCandidato = new ArrayList<>();
     public static void main(String[] args) throws Exception {
-        App app = new App();
-        try{
+        try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
-    }
 
+        App app = new App();
+    }
     
     Container contenedor;
     FlowLayout layout;
     JLabel etiqueta1, infoCandidato, etiquetaNombre, etiquetaCedula, etiquetaPromesas, etiquetaVotos;
     JMenuBar barraMenuBar;
     JMenu crud, datosCandidato;
-    JTextField campo1, campo2, campo3, campo4;
+    JTextField nombre, cedula, promesas, votos;
     JMenuItem crearCandidato, actualizarCandidato, eliminarCandidato, listaCandidatos, votosCandidatos, candidatoGanador, ciudadCandidato, partidosCandidato;
-    JButton salir;
+    JButton salir, guardar;
+    JFrame frame;
     public App(){
         
         setTitle("Pagina principal");
@@ -82,25 +85,33 @@ public class App extends JFrame implements ActionListener {
         partidosCandidato.addActionListener(this);
 
         etiquetaNombre = new JLabel("Ingrese el nombre: ");
-        campo1 = new JTextField(20);
-        contenedor.add(etiquetaNombre, campo1);
+        nombre = new JTextField(15);
+        contenedor.add(etiquetaNombre);
+        contenedor.add(nombre);
+        
 
         etiquetaCedula = new JLabel("Ingrese la cédula: ");
-        campo2 = new JTextField(10);
-        contenedor.add(etiquetaCedula, campo2);
+        cedula = new JTextField(10);
+        contenedor.add(etiquetaCedula);
+        contenedor.add(cedula);
 
         etiquetaPromesas = new JLabel("Ingrese las promesas del candidadto: ");
-        campo3 = new JTextField(10);
-        contenedor.add(etiquetaPromesas, campo3);
+        promesas = new JTextField(20);
+        contenedor.add(etiquetaPromesas);
+        contenedor.add(promesas);
 
         etiquetaVotos = new JLabel("Ingrese los votos del candidato: ");
-        campo4 = new JTextField(5);
-        contenedor.add(etiquetaVotos, campo4);
+        votos = new JTextField(5);
+        contenedor.add(etiquetaVotos);
+        contenedor.add(votos);
+
+
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 300);
         setVisible(true);
 
+        //Candidato candidato = new Candidato();
     }
         
     @Override
@@ -116,5 +127,19 @@ public class App extends JFrame implements ActionListener {
         } else if (e.getSource() == partidosCandidato) {
             infoCandidato.setText("Mostrar partidos con más candidatos aquí");
         }
-    }
+
+
+    salir.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.exit(0);
+        }
+    });
+
+    guardar.addActionListener(new ActionListener(){
+         @Override
+        public void actionPerformed(ActionEvent e) {
+
+    frame.setVisible(true);
+}
 }
