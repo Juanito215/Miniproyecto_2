@@ -1,4 +1,5 @@
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -23,7 +24,6 @@ public class App extends JFrame implements ActionListener {
         } catch (Exception e) {
             System.out.println(e);
         }
-
         App app = new App();
     }
     
@@ -32,9 +32,10 @@ public class App extends JFrame implements ActionListener {
     JLabel etiqueta1, infoCandidato, etiquetaNombre, etiquetaCedula, etiquetaPromesas, etiquetaVotos;
     JMenuBar barraMenuBar;
     JMenu crud, datosCandidato;
-    JTextField nombre, cedula, promesas, votos;
+    JTextField nombreText, cedulaText, promesasText, votosText;
     JMenuItem crearCandidato, actualizarCandidato, eliminarCandidato, listaCandidatos, votosCandidatos, candidatoGanador, ciudadCandidato, partidosCandidato;
-    JButton salir, guardar;
+    JButton guardar;
+    JComboBox ideologia, ciudad, partidos;
     JFrame frame;
     public App(){
         
@@ -49,10 +50,9 @@ public class App extends JFrame implements ActionListener {
         barraMenuBar = new JMenuBar();
         crud = new JMenu("Datos del candidato");
         datosCandidato = new JMenu("Informacion del candidato");
-        salir = new JButton("Salir de la app");
         barraMenuBar.add(crud);
         barraMenuBar.add(datosCandidato);
-        barraMenuBar.add(salir);
+        
 
         crearCandidato = new JMenuItem("Registrar Candidato");
         actualizarCandidato = new JMenuItem("Actualizar Candidato");
@@ -85,33 +85,42 @@ public class App extends JFrame implements ActionListener {
         partidosCandidato.addActionListener(this);
 
         etiquetaNombre = new JLabel("Ingrese el nombre: ");
-        nombre = new JTextField(15);
+        nombreText = new JTextField(15);
         contenedor.add(etiquetaNombre);
-        contenedor.add(nombre);
+        contenedor.add(nombreText);
         
 
         etiquetaCedula = new JLabel("Ingrese la cédula: ");
-        cedula = new JTextField(10);
+        cedulaText = new JTextField(10);
         contenedor.add(etiquetaCedula);
-        contenedor.add(cedula);
+        contenedor.add(cedulaText);
 
         etiquetaPromesas = new JLabel("Ingrese las promesas del candidadto: ");
-        promesas = new JTextField(20);
+        promesasText = new JTextField(20);
         contenedor.add(etiquetaPromesas);
-        contenedor.add(promesas);
+        contenedor.add(promesasText);
 
         etiquetaVotos = new JLabel("Ingrese los votos del candidato: ");
-        votos = new JTextField(5);
+        votosText = new JTextField(5);
         contenedor.add(etiquetaVotos);
-        contenedor.add(votos);
+        contenedor.add(votosText);
 
+        guardar = new JButton("Guardar");
+        contenedor.add(guardar);
 
+        ideologia = new JComboBox<>(Ideologia.values());
+        contenedor.add(ideologia);
+
+        ciudad = new JComboBox<>(Ciudades.values());
+        contenedor.add(ciudad);
+
+        partidos = new JComboBox<>(Partidos.values());
+        contenedor.add(partidos);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 300);
         setVisible(true);
 
-        //Candidato candidato = new Candidato();
     }
         
     @Override
@@ -128,18 +137,49 @@ public class App extends JFrame implements ActionListener {
             infoCandidato.setText("Mostrar partidos con más candidatos aquí");
         }
 
+        crearCandidato.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Cuando se hace clic en el elemento de menú, crea una nueva ventana
+                VentanaRegistrarCandidatos ventanaSecundaria = new VentanaRegistrarCandidatos();
+                ventanaSecundaria.setVisible(true);
+            }
+        });
 
-    salir.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            System.exit(0);
-        }
-    });
-
-    guardar.addActionListener(new ActionListener(){
+        actualizarCandidato.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
+            
+     guardar.addActionListener(new ActionListener(){
          @Override
         public void actionPerformed(ActionEvent e) {
+                String nombre = nombreText.getText();
+                String cedula = cedulaText.getText();
+                String promesas = promesasText.getText();
+                int votos = Integer.parseInt(votosText.getText());
+            }
+        });
 
-    frame.setVisible(true);
-}
+        ideologia.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Ideologia ideologiaSeleccionada = (Ideologia) ideologia.getSelectedItem();
+            }
+        });
+        ciudad.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Ciudades partidoSeleccionado = (Ciudades) ciudad.getSelectedItem();
+            }
+        });
+        partidos.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Partidos partidoSeleccionado = (Partidos) partidos.getSelectedItem();      
+            }
+        });
+    }
 }
