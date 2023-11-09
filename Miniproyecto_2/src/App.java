@@ -5,15 +5,16 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 import java.awt.Container;
 import java.awt.FlowLayout;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class App extends JFrame implements ActionListener {
@@ -27,16 +28,18 @@ public class App extends JFrame implements ActionListener {
         App app = new App();
     }
     
+    
     Container contenedor;
     FlowLayout layout;
-    JLabel etiqueta1, infoCandidato, etiquetaNombre, etiquetaCedula, etiquetaPromesas, etiquetaVotos;
+    JLabel etiqueta1, infoCandidato, etiquetaNombre, etiquetaCedula, etiquetaPromesas, etiquetaVotos, eliminarJLabel;
     JMenuBar barraMenuBar;
     JMenu crud, datosCandidato;
-    JTextField nombreText, cedulaText, promesasText, votosText;
+    JTextField nombreText, cedulaText, promesasText, votosText, eliminarText;
     JMenuItem crearCandidato, actualizarCandidato, eliminarCandidato, listaCandidatos, votosCandidatos, candidatoGanador, ciudadCandidato, partidosCandidato;
-    JButton guardar;
+    JButton guardar, eliminar;
     JComboBox ideologia, ciudad, partidos;
     JFrame frame;
+    //JTextArea listaCandidatosTextArea;
     
     String nombre;
     String cedula;
@@ -45,7 +48,6 @@ public class App extends JFrame implements ActionListener {
     Ideologia ideologiaSeleccionada;
     Ciudades ciudadSeleccionada;
     Partidos partidoSeleccionado;
-
     
     public App(){
         
@@ -74,6 +76,9 @@ public class App extends JFrame implements ActionListener {
         ciudadCandidato = new JMenuItem("Ciudades con menos candidatos");
         partidosCandidato = new JMenuItem("Partidos con mas candidatos");
 
+        //listaCandidatosTextArea = new JTextArea(10, 40);
+        //contenedor.add(listaCandidatosTextArea);
+        
         datosCandidato.add(listaCandidatos);
         datosCandidato.add(votosCandidatos);
         datosCandidato.add(candidatoGanador);
@@ -127,6 +132,15 @@ public class App extends JFrame implements ActionListener {
         partidos = new JComboBox<>(Partidos.values());
         contenedor.add(partidos);
 
+        eliminarJLabel = new JLabel("Ingrese la cedula del candidato que desea eliminar: ");
+        eliminarText = new JTextField(10);
+        contenedor.add(eliminarJLabel);
+        contenedor.add(eliminarText);
+
+        eliminar = new JButton("Eliminar");
+        contenedor.add(eliminar);
+           
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 300);
         setVisible(true);
@@ -155,7 +169,26 @@ public class App extends JFrame implements ActionListener {
                 ventanaSecundaria.setVisible(true);
             }
         });
-
+            
+    /*    
+    @Override
+    public void actionPerformed(ActionEvent e){
+        if (e.getSource().equals(listaCandidatos)){
+                    listaCandidatosTextArea.setText("");
+                    StringBuilder listaCandidatosTexto = new StringBuilder();
+                    for (Candidato candidato : listaCandidatosTexto){
+                        listaCandidatosTexto.append("Nombre: ").append(candidato.getNombre()).append("\n");
+                        listaCandidatosTexto.append("Cedula: ").append(candidato.getCedula()).append("\n");
+                        listaCandidatosTexto.append("Promesas: ").append(candidato.getPromesas()).append("\n");
+                        listaCandidatosTexto.append("Votos: ").append(candidato.getVotos()).append("\n");
+                        listaCandidatosTexto.append("Ciudad").append(candidato.getCiudad()).append("\n");
+                        listaCandidatosTexto.append("Partido").append(candidato.getPartido()).append("\n");
+                            
+                }
+                listaCandidatosTextArea.setText(listaCandidatosTexto.toString());
+            }
+        }
+*/ 
         actualizarCandidato.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -169,13 +202,13 @@ public class App extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e){
             VentanaEliminarCandidato ventanaEliminar = new VentanaEliminarCandidato();
             ventanaEliminar.setVisible(true);
-                
+                    
             }
         });
-            
-     guardar.addActionListener(new ActionListener(){
-         @Override
-        public void actionPerformed(ActionEvent e) {
+                
+        guardar.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 nombre = nombreText.getText();
                 cedula = cedulaText.getText();
                 promesas = promesasText.getText();
@@ -201,9 +234,22 @@ public class App extends JFrame implements ActionListener {
         partidos.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                Partidos partidoSeleccionado = (Partidos) partidos.getSelectedItem();      
+                partidoSeleccionado = (Partidos) partidos.getSelectedItem();      
             }
         });
-        Candidato candidato = new Candidato(ideologiaSeleccionada, partidoSeleccionado, );
-    }
+        eliminar.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {    
+                Iterator<Candidato> iterator = listaCandidato.iterator();
+                while (iterator.hasNext()) {
+                    Candidato candidato = iterator.next();
+                    if (candidato.getCedula().equals(eliminarText)) {
+                        iterator.remove();
+                    }
+                }
+            }
+        });
+        Candidato candidato = new Candidato(ideologiaSeleccionada, partidoSeleccionado, votos, promesas, nombre, cedula, ciudadSeleccionada );
+        listaCandidato.add(candidato);
+        }
 }

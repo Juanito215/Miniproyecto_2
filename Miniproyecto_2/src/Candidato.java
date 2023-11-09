@@ -3,6 +3,7 @@ public class Candidato extends Ciudadano {
     private Partidos partido;
     private int votos;
     private String promesas;
+    private Ciudades ciudad;
 
     public Candidato(Ideologia ideologia, Partidos partido, int votos, String promesas, String nombre, String cedula, Ciudades ciudad){
         super(nombre, cedula, ciudad);
@@ -10,6 +11,7 @@ public class Candidato extends Ciudadano {
         this.partido = partido;
         this.promesas = promesas;
         this.votos = votos;
+        this.ciudad = ciudad;
     }
 
     public Ideologia getIdeologia() {
@@ -42,6 +44,14 @@ public class Candidato extends Ciudadano {
 
     public void setPromesas(String promesas) {
         this.promesas = promesas;
+    }
+
+    public Ciudades getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(Ciudades ciudad) {
+        this.ciudad = ciudad;
     }
     
 }
