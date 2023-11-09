@@ -37,6 +37,16 @@ public class App extends JFrame implements ActionListener {
     JButton guardar;
     JComboBox ideologia, ciudad, partidos;
     JFrame frame;
+    
+    String nombre;
+    String cedula;
+    String promesas;
+    int votos;
+    Ideologia ideologiaSeleccionada;
+    Ciudades ciudadSeleccionada;
+    Partidos partidoSeleccionado;
+
+    
     public App(){
         
         setTitle("Pagina principal");
@@ -149,6 +159,16 @@ public class App extends JFrame implements ActionListener {
         actualizarCandidato.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+            VentanaActualizarCandidato ventanaActualizar = new VentanaActualizarCandidato();
+            ventanaActualizar.setVisible(true);
+            }
+        });
+
+        eliminarCandidato.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+            VentanaEliminarCandidato ventanaEliminar = new VentanaEliminarCandidato();
+            ventanaEliminar.setVisible(true);
                 
             }
         });
@@ -156,23 +176,26 @@ public class App extends JFrame implements ActionListener {
      guardar.addActionListener(new ActionListener(){
          @Override
         public void actionPerformed(ActionEvent e) {
-                String nombre = nombreText.getText();
-                String cedula = cedulaText.getText();
-                String promesas = promesasText.getText();
-                int votos = Integer.parseInt(votosText.getText());
+                nombre = nombreText.getText();
+                cedula = cedulaText.getText();
+                promesas = promesasText.getText();
+                votos = Integer.parseInt(votosText.getText());
+                ideologiaSeleccionada = (Ideologia) ideologia.getSelectedItem();
+                ciudadSeleccionada = (Ciudades) ciudad.getSelectedItem();
+                partidoSeleccionado = (Partidos) partidos.getSelectedItem();
             }
         });
 
         ideologia.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                Ideologia ideologiaSeleccionada = (Ideologia) ideologia.getSelectedItem();
+                ideologiaSeleccionada = (Ideologia) ideologia.getSelectedItem();
             }
         });
         ciudad.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                Ciudades partidoSeleccionado = (Ciudades) ciudad.getSelectedItem();
+                ciudadSeleccionada = (Ciudades) ciudad.getSelectedItem();
             }
         });
         partidos.addActionListener(new ActionListener(){
@@ -181,5 +204,6 @@ public class App extends JFrame implements ActionListener {
                 Partidos partidoSeleccionado = (Partidos) partidos.getSelectedItem();      
             }
         });
+        Candidato candidato = new Candidato(ideologiaSeleccionada, partidoSeleccionado, );
     }
 }
