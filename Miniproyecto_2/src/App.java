@@ -73,9 +73,6 @@ public class App extends JFrame implements ActionListener {
         candidatoGanador = new JMenuItem("Candidato ganador");
         ciudadCandidato = new JMenuItem("Ciudades con menos candidatos");
         partidosCandidato = new JMenuItem("Partidos con mas candidatos");
-
-        //listaCandidatosTextArea = new JTextArea(10, 40);
-        //contenedor.add(listaCandidatosTextArea);
         
         datosCandidato.add(listarCandidatos);
         datosCandidato.add(votosCandidatos);
@@ -125,26 +122,7 @@ public class App extends JFrame implements ActionListener {
                 ventanaSecundaria.setVisible(true);
             }
         });
-            
-    /*    
-    @Override
-    public void actionPerformed(ActionEvent e){
-        if (e.getSource().equals(listaCandidatos)){
-                    listaCandidatosTextArea.setText("");
-                    StringBuilder listaCandidatosTexto = new StringBuilder();
-                    for (Candidato candidato : listaCandidatosTexto){
-                        listaCandidatosTexto.append("Nombre: ").append(candidato.getNombre()).append("\n");
-                        listaCandidatosTexto.append("Cedula: ").append(candidato.getCedula()).append("\n");
-                        listaCandidatosTexto.append("Promesas: ").append(candidato.getPromesas()).append("\n");
-                        listaCandidatosTexto.append("Votos: ").append(candidato.getVotos()).append("\n");
-                        listaCandidatosTexto.append("Ciudad").append(candidato.getCiudad()).append("\n");
-                        listaCandidatosTexto.append("Partido").append(candidato.getPartido()).append("\n");
-                            
-                }
-                listaCandidatosTextArea.setText(listaCandidatosTexto.toString());
-            }
-        }
-*/ 
+
         actualizarCandidato.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -156,56 +134,9 @@ public class App extends JFrame implements ActionListener {
         eliminarCandidato.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-            VentanaEliminarCandidato ventanaEliminar = new VentanaEliminarCandidato();
-            ventanaEliminar.setVisible(true);
-                    
+            VentanaEliminarCandidato ventanaEliminar = new VentanaEliminarCandidato(listaCandidato);
+            ventanaEliminar.setVisible(true);       
             }
         });
-                
-        /*guardar.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                nombre = nombreText.getText();
-                cedula = cedulaText.getText();
-                promesas = promesasText.getText();
-                votos = Integer.parseInt(votosText.getText());
-                ideologiaSeleccionada = (Ideologia) ideologia.getSelectedItem();
-                ciudadSeleccionada = (Ciudades) ciudad.getSelectedItem();
-                partidoSeleccionado = (Partidos) partidos.getSelectedItem();
-            }
-        });*/
-
-        /*ideologia.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ideologiaSeleccionada = (Ideologia) ideologia.getSelectedItem();
-            }
-        });
-        ciudad.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ciudadSeleccionada = (Ciudades) ciudad.getSelectedItem();
-            }
-        });
-        partidos.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                partidoSeleccionado = (Partidos) partidos.getSelectedItem();      
-            }
-        });
-        eliminar.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {    
-                Iterator<Candidato> iterator = listaCandidato.iterator();
-                while (iterator.hasNext()) {
-                    Candidato candidato = iterator.next();
-                    if (candidato.getCedula().equals(eliminarText)) {
-                        iterator.remove();
-                    }
-                }
-            }
-        });
-        //Candidato candidato = new Candidato(ideologiaSeleccionada, partidoSeleccionado, votos, promesas, nombre, cedula, ciudadSeleccionada );
-        //listaCandidato.add(candidato);*/
-        }
+    }
 }
