@@ -1,3 +1,3 @@
 public enum Ideologia {
-    Izquierda, Derecha
+    Seleccionar, Izquierda, Derecha
 }

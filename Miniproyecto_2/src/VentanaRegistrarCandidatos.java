@@ -80,6 +80,7 @@ public class VentanaRegistrarCandidatos extends JFrame implements ActionListener
         guardar = new JButton("Guardar");
         guardar.addActionListener(this);
         contenedor.add(guardar);
+    }
 
        /* eliminarJLabel = new JLabel("Ingrese la cedula del candidato que desea eliminar: ");
         eliminarText = new JTextField(10);
@@ -90,47 +91,32 @@ public class VentanaRegistrarCandidatos extends JFrame implements ActionListener
         contenedor.add(eliminar);
         */
     
-    guardar.addActionListener(new ActionListener(){
+   
         @Override
         public void actionPerformed(ActionEvent e) {
-            nombre = nombreText.getText();
-            cedula = cedulaText.getText();
-            promesas = promesasText.getText();
-            votos = Integer.parseInt(votosText.getText());
+
+            if(e.getSource() == guardar){
+                nombre = nombreText.getText();
+                cedula = cedulaText.getText();
+                promesas = promesasText.getText();
+                votos = Integer.parseInt(votosText.getText());
+                ideologiaSeleccionada = (Ideologia) ideologia.getSelectedItem();
+                ciudadSeleccionada = (Ciudades) ciudad.getSelectedItem();
+                partidoSeleccionado = (Partidos) partidos.getSelectedItem();
+            }else if(ideologia.getSelectedItem() == Ideologia.Seleccionar){
+                ideologiaSeleccionada = null;
+            }else if(ciudad.getSelectedItem() == Ciudades.Seleccionar){
+                ciudadSeleccionada = null;
+            }else if(partidos.getSelectedItem() == Partidos.Seleccionar){
+                partidoSeleccionado = null;
+            }
+            
             ideologiaSeleccionada = (Ideologia) ideologia.getSelectedItem();
             ciudadSeleccionada = (Ciudades) ciudad.getSelectedItem();
             partidoSeleccionado = (Partidos) partidos.getSelectedItem();
 
-            System.out.println(listaCandidatos);
             Candidato candidato = new Candidato(ideologiaSeleccionada, partidoSeleccionado, votos, promesas, nombre, cedula, ciudadSeleccionada );
             listaCandidato.add(candidato);
+            System.out.println(listaCandidato);
         }
-
-    });
-
-    ideologia.addActionListener(new ActionListener(){
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            ideologiaSeleccionada = (Ideologia) ideologia.getSelectedItem();
-        }
-    });
-    ciudad.addActionListener(new ActionListener(){
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            ciudadSeleccionada = (Ciudades) ciudad.getSelectedItem();
-        }
-    });
-    partidos.addActionListener(new ActionListener(){
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            partidoSeleccionado = (Partidos) partidos.getSelectedItem();      
-        }
-    });
-}
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-    }
-
 }
