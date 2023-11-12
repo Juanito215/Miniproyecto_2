@@ -27,11 +27,11 @@ public class VentanaRegistrarCandidatos extends JFrame implements ActionListener
     Ideologia ideologiaSeleccionada;
     Ciudades ciudadSeleccionada;
     Partidos partidoSeleccionado;
-    ArrayList<Candidato> listaCandidato;
+    static ArrayList<Candidato> listaCandidato;
     
 
     public VentanaRegistrarCandidatos(ArrayList<Candidato> listaCandidato) {
-        this.listaCandidato = listaCandidato; //Inicializo la lista
+        VentanaRegistrarCandidatos.listaCandidato = listaCandidato; //Inicializo la lista
 
         setTitle("Registrar Candidato");
         setSize(350, 300);
@@ -141,8 +141,6 @@ public class VentanaRegistrarCandidatos extends JFrame implements ActionListener
 
                 Candidato candidato = new Candidato(ideologiaSeleccionada, partidoSeleccionado, votos, promesas, nombre, cedula, ciudadSeleccionada );
                 listaCandidato.add(candidato);
-                System.out.println(listaCandidato);
-
             
             } catch (RuntimeException ex) {
                 // Mostrar un mensaje indicando que se ha producido una excepción

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 
 public class App extends JFrame implements ActionListener {
-    static ArrayList <Candidato> listaCandidato = new ArrayList<>();
+    public static ArrayList <Candidato> listaCandidato = new ArrayList<>();
     public static void main(String[] args) throws Exception {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
@@ -126,7 +126,8 @@ public class App extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == listarCandidatos) {
-            infoCandidato.setText("Mostrar lista de candidatos aquí");
+            VentanaListaCandidato ventanaLista = new VentanaListaCandidato();
+            ventanaLista.setVisible(true);
         } else if (e.getSource() == votosCandidatos) {
             infoCandidato.setText("Mostrar votos de los candidatos aquí");
         } else if (e.getSource() == candidatoGanador) {
