@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.util.ArrayList;
 
@@ -81,42 +82,70 @@ public class VentanaRegistrarCandidatos extends JFrame implements ActionListener
         guardar.addActionListener(this);
         contenedor.add(guardar);
     }
-
-       /* eliminarJLabel = new JLabel("Ingrese la cedula del candidato que desea eliminar: ");
-        eliminarText = new JTextField(10);
-        contenedor.add(eliminarJLabel);
-        contenedor.add(eliminarText);
-
-        eliminar = new JButton("Eliminar");
-        contenedor.add(eliminar);
-        */
-    
    
         @Override
         public void actionPerformed(ActionEvent e) {
 
             if(e.getSource() == guardar){
-                nombre = nombreText.getText();
-                cedula = cedulaText.getText();
-                promesas = promesasText.getText();
-                votos = Integer.parseInt(votosText.getText());
+                
+                try{
+                //Si no se ingresa nada saldra el error
+                    if (nombreText.getText().isEmpty() || cedulaText.getText().isEmpty() || promesasText.getText().isEmpty() || votosText.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(this, "¿Como quieres guardar nada?\n no tiene sentido o tal vez para ti si pero no para el 99% de la gente y la fisica\n literalmente estas yendo en contra de las fisicas. Mi idolo", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                        
+                    nombre = nombreText.getText();
+                    //Valida que el nombre solo tenga letras pues es raro que contenga numeros, ¿No?
+                    if (!nombre.matches("^[a-zA-Z]+$")) {
+                        JOptionPane.showMessageDialog(this, "Dale mi rey los nombres no contienen numeros\n tal vez en otra realidad pero en esta no", "Error", JOptionPane.ERROR_MESSAGE);
+                        return; // No permite continuar con la operación
+                    }
+                    cedula = cedulaText.getText();
+                    //Valida que la cédula solo contenga números pues es imposible que tenga letras
+                    if (!cedula.matches("^[0-9]+$")) {
+                        JOptionPane.showMessageDialog(this, "Que cedula mas rara que contiene letras \n ¿si será colombiana?", "Error", JOptionPane.ERROR_MESSAGE);
+                        return; 
+                    }
+                    promesas = promesasText.getText();
+                    
+                    votos = Integer.parseInt(votosText.getText());
+                    //Validamos que los votos no superen a la poblacion de colombia
+                    if (votos > 52000000){
+                        JOptionPane.showMessageDialog(this, "Se sabe que colombia es corruputa, pero no tanto\n como para que los fantasmas voten.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    ideologiaSeleccionada = (Ideologia) ideologia.getSelectedItem();
+                    //Valida si se selecciono algunas de las opciones (Obviamente SELECCIONAR no es una ciudad ni ideologia ni un partido)
+                    if (ideologiaSeleccionada == Ideologia.Seleccionar){
+                        JOptionPane.showMessageDialog(this, "Me pregunto que tal la ideologia SELECCIONAR, de seguro sera dudosa\n *Tambores*", "Error", JOptionPane.ERROR_MESSAGE);
+                        return; 
+                    }
+                    ciudadSeleccionada = (Ciudades) ciudad.getSelectedItem();
+                    if (ciudadSeleccionada == Ciudades.Seleccionar){
+                        JOptionPane.showMessageDialog(this, "Seleccionar no es una ciudad de (al menos) colombia\n o tal vez si, solo que no la conozco ni creo que el 100% de los colombianos", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    partidoSeleccionado = (Partidos) partidos.getSelectedItem();
+                    if (partidoSeleccionado == Partidos.Seleccionar){
+                        JOptionPane.showMessageDialog(this, "Que increible el partido SELECCIONAR", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                
                 ideologiaSeleccionada = (Ideologia) ideologia.getSelectedItem();
                 ciudadSeleccionada = (Ciudades) ciudad.getSelectedItem();
                 partidoSeleccionado = (Partidos) partidos.getSelectedItem();
-            }else if(ideologia.getSelectedItem() == Ideologia.Seleccionar){
-                ideologiaSeleccionada = null;
-            }else if(ciudad.getSelectedItem() == Ciudades.Seleccionar){
-                ciudadSeleccionada = null;
-            }else if(partidos.getSelectedItem() == Partidos.Seleccionar){
-                partidoSeleccionado = null;
-            }
-            
-            ideologiaSeleccionada = (Ideologia) ideologia.getSelectedItem();
-            ciudadSeleccionada = (Ciudades) ciudad.getSelectedItem();
-            partidoSeleccionado = (Partidos) partidos.getSelectedItem();
 
-            Candidato candidato = new Candidato(ideologiaSeleccionada, partidoSeleccionado, votos, promesas, nombre, cedula, ciudadSeleccionada );
-            listaCandidato.add(candidato);
-            System.out.println(listaCandidato);
+                Candidato candidato = new Candidato(ideologiaSeleccionada, partidoSeleccionado, votos, promesas, nombre, cedula, ciudadSeleccionada );
+                listaCandidato.add(candidato);
+                System.out.println(listaCandidato);
+
+            
+            } catch (RuntimeException ex) {
+                // Mostrar un mensaje indicando que se ha producido una excepción
+                JOptionPane.showMessageDialog(this, "No se desde cuando los votos pueden llevar letras", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
+    }
 }
