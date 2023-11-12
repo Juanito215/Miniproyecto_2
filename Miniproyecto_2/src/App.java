@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
@@ -13,7 +14,6 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 
 public class App extends JFrame implements ActionListener {
@@ -53,6 +53,7 @@ public class App extends JFrame implements ActionListener {
         contenedor = getContentPane();
         layout = new FlowLayout();
         contenedor.setLayout(layout);
+
 
         etiqueta1 = new JLabel("SISTEMA DE REGISTRO DE CANDIDATOS");
         contenedor.add(etiqueta1);
@@ -98,7 +99,29 @@ public class App extends JFrame implements ActionListener {
         setSize(500, 300);
         setVisible(true);
 
+    crearCandidato.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            VentanaRegistrarCandidatos ventanaSecundaria = new VentanaRegistrarCandidatos(listaCandidato);
+            ventanaSecundaria.setVisible(true);
+            }
+        });
+    actualizarCandidato.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            VentanaActualizarCandidato ventanaActualizar = new VentanaActualizarCandidato(listaCandidato);
+            ventanaActualizar.setVisible(true);
+            }
+        });
+    eliminarCandidato.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e){
+            VentanaEliminarCandidato ventanaEliminar = new VentanaEliminarCandidato(listaCandidato);
+            ventanaEliminar.setVisible(true);       
+            }
+        });
     }
+
         
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -113,30 +136,5 @@ public class App extends JFrame implements ActionListener {
         } else if (e.getSource() == partidosCandidato) {
             infoCandidato.setText("Mostrar partidos con más candidatos aquí");
         }
-
-        crearCandidato.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Cuando se hace clic en el elemento de menú, crea una nueva ventana
-                VentanaRegistrarCandidatos ventanaSecundaria = new VentanaRegistrarCandidatos(listaCandidato);
-                ventanaSecundaria.setVisible(true);
-            }
-        });
-
-        actualizarCandidato.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            VentanaActualizarCandidato ventanaActualizar = new VentanaActualizarCandidato();
-            ventanaActualizar.setVisible(true);
-            }
-        });
-
-        eliminarCandidato.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e){
-            VentanaEliminarCandidato ventanaEliminar = new VentanaEliminarCandidato(listaCandidato);
-            ventanaEliminar.setVisible(true);       
-            }
-        });
     }
 }
