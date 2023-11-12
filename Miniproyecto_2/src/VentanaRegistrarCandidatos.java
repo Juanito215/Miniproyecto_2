@@ -2,14 +2,10 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.util.ArrayList;
@@ -20,13 +16,9 @@ public class VentanaRegistrarCandidatos extends JFrame implements ActionListener
     Container contenedor;
     FlowLayout layout;
     JLabel etiqueta1, infoCandidato, etiquetaNombre, etiquetaCedula, etiquetaPromesas, etiquetaVotos, eliminarJLabel;
-    JMenuBar barraMenuBar;
-    JMenu crud, datosCandidato;
     JTextField nombreText, cedulaText, promesasText, votosText, eliminarText;
-    JMenuItem crearCandidato, actualizarCandidato, eliminarCandidato, listaCandidatos, votosCandidatos, candidatoGanador, ciudadCandidato, partidosCandidato;
     JButton guardar, eliminar;
     JComboBox ideologia, ciudad, partidos;
-    JFrame frame;
     
     String nombre;
     String cedula;
@@ -88,32 +80,42 @@ public class VentanaRegistrarCandidatos extends JFrame implements ActionListener
 
             if(e.getSource() == guardar){
                 
-                try{
-                //Si no se ingresa nada saldra el error
-                    if (nombreText.getText().isEmpty() || cedulaText.getText().isEmpty() || promesasText.getText().isEmpty() || votosText.getText().isEmpty()) {
-                        JOptionPane.showMessageDialog(this, "¿Como quieres guardar nada?\n no tiene sentido o tal vez para ti si pero no para el 99% de la gente y la fisica\n literalmente estas yendo en contra de las fisicas. Mi idolo", "Error", JOptionPane.ERROR_MESSAGE);
+                try{                        
+                    nombre = nombreText.getText();
+                    if (nombreText.getText().isEmpty()){ //Si no hay nada sale la excepcion, así con todos
+                        JOptionPane.showMessageDialog(this, "¿No le vas a poner nombre? :(", "Error", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
-                        
-                    nombre = nombreText.getText();
                     //Valida que el nombre solo tenga letras pues es raro que contenga numeros, ¿No?
                     if (!nombre.matches("^[a-zA-Z]+$")) {
                         JOptionPane.showMessageDialog(this, "Dale mi rey los nombres no contienen numeros\n tal vez en otra realidad pero en esta no", "Error", JOptionPane.ERROR_MESSAGE);
                         return; // No permite continuar con la operación
                     }
+     
                     cedula = cedulaText.getText();
-                    //Valida que la cédula solo contenga números pues es imposible que tenga letras
-                    if (!cedula.matches("^[0-9]+$")) {
+                    if (cedulaText.getText().isEmpty()){
+                        JOptionPane.showMessageDialog(this, "¿Como no va a tener cedula el candidato? Si es lo mas importante", "Error", JOptionPane.ERROR_MESSAGE);
+                    }else if (!cedula.matches("^[0-9]+$")) { //Valida que la cédula solo contenga números pues es imposible que tenga letras
                         JOptionPane.showMessageDialog(this, "Que cedula mas rara que contiene letras \n ¿si será colombiana?", "Error", JOptionPane.ERROR_MESSAGE);
                         return; 
                     }
+
                     promesas = promesasText.getText();
+                    if (promesasText.getText().isEmpty()){
+                        JOptionPane.showMessageDialog(this, "¿Y que promesas va a hacer?\n Al poder no se llega sin nada, los ciudadanos no te van a elegir si no les das nada\n Dale que antes te estoy haciendo un favor al no dejarte ir mas allá", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                     
                     votos = Integer.parseInt(votosText.getText());
-                    //Validamos que los votos no superen a la poblacion de colombia
-                    if (votos > 52000000){
+                    if (votosText.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(this, "¿Como que no hay votos? Alguno te habrás llevado, ¿No?", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }else if (votos > 52000000){ //Validamos que los votos no superen a la poblacion de colombia
                         JOptionPane.showMessageDialog(this, "Se sabe que colombia es corruputa, pero no tanto\n como para que los fantasmas voten.", "Error", JOptionPane.ERROR_MESSAGE);
                         return;
+                    }
+                    if (votos < 30){
+                        JOptionPane.showMessageDialog(this, "¿Para que te lanzaste a hacer campaña?","Error", JOptionPane.ERROR_MESSAGE);
+
                     }
 
                     ideologiaSeleccionada = (Ideologia) ideologia.getSelectedItem();

@@ -2,11 +2,7 @@ import javax.swing.JFrame;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.util.ArrayList;
@@ -15,22 +11,10 @@ public class VentanaEliminarCandidato extends JFrame {
 
     Container contenedor;
     FlowLayout layout;
-    JLabel etiqueta1, infoCandidato, etiquetaNombre, etiquetaCedula, etiquetaPromesas, etiquetaVotos, eliminarJLabel;
-    JMenuBar barraMenuBar;
-    JMenu crud, datosCandidato;
-    JTextField nombreText, cedulaText, promesasText, votosText, eliminarText;
-    JMenuItem crearCandidato, actualizarCandidato, eliminarCandidato, listaCandidatos, votosCandidatos, candidatoGanador, ciudadCandidato, partidosCandidato;
+    JLabel eliminarJLabel;
+    JTextField eliminarText;
     JButton guardar, eliminar;
-    JComboBox ideologia, ciudad, partidos;
-    JFrame frame;
-    
-    String nombre;
-    String cedula;
-    String promesas;
-    int votos;
-    Ideologia ideologiaSeleccionada;
-    Ciudades ciudadSeleccionada;
-    Partidos partidoSeleccionado;
+
     ArrayList<Candidato> listaCandidato;
 
     public VentanaEliminarCandidato(ArrayList<Candidato> listaCandidato){
@@ -38,7 +22,7 @@ public class VentanaEliminarCandidato extends JFrame {
 
         setTitle("Eliminar Candidato");
         setSize(350, 200);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         contenedor = getContentPane();
         layout = new FlowLayout();
@@ -55,6 +39,16 @@ public class VentanaEliminarCandidato extends JFrame {
         eliminar.addActionListener(e -> {
             String cedulaAEliminar = eliminarText.getText();
             boolean candidatoEliminado = false;
+            //Si no hay nada introducido sale el error
+            if (cedulaAEliminar.isEmpty() ) {
+                JOptionPane.showMessageDialog(this, "¿Como vas a eliminar nada?\n Introduce algo por favor.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            //Valida que la cédula solo contenga números pues es imposible que tenga letras
+            if (!cedulaAEliminar.matches("^[0-9]+$")) {
+                JOptionPane.showMessageDialog(this, "Que cedula mas rara que contiene letras \n ¿si será colombiana?", "Error", JOptionPane.ERROR_MESSAGE);
+                return; 
+            }
 
             for (Candidato candidato : listaCandidato) {
                 if (candidato.getCedula().equals(cedulaAEliminar)) {
@@ -63,12 +57,14 @@ public class VentanaEliminarCandidato extends JFrame {
                     break;
                 }
             }
-            
+
+
             if (candidatoEliminado) {
-                JOptionPane.showMessageDialog(this, "Candidato eliminado correctamente", "Eliminación Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Se eliminó al candidato correctamente", "Eliminación Exitosa", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "Candidato no encontrado", "Error al eliminar", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "¿Estas seguro que existe esa cedula del candidato? \n Cuidado con un numero de mas o de menos", "Error al eliminar", JOptionPane.WARNING_MESSAGE);
             }
+
         });
 
 
