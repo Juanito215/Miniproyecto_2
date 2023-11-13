@@ -137,7 +137,8 @@ public class App extends JFrame implements ActionListener {
             VentanaCiudadesCandidato ventanaCiudadesCandidato = new VentanaCiudadesCandidato();
             ventanaCiudadesCandidato.setVisible(true);
         } else if (e.getSource() == partidosCandidato) {
-            infoCandidato.setText("Mostrar partidos con más candidatos aquí");
+            VentanaPartidosCandidato ventanaPartidosCandidato = new VentanaPartidosCandidato();
+            ventanaPartidosCandidato.setVisible(true);
         }
     }
 
