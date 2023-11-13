@@ -5,7 +5,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
@@ -129,9 +128,11 @@ public class App extends JFrame implements ActionListener {
             VentanaListaCandidato ventanaLista = new VentanaListaCandidato();
             ventanaLista.setVisible(true);
         } else if (e.getSource() == votosCandidatos) {
-            infoCandidato.setText("Mostrar votos de los candidatos aquí");
+            VentanaVotosCandidatos ventanaVotos = new VentanaVotosCandidatos();
+            ventanaVotos.setVisible(true);
         } else if (e.getSource() == candidatoGanador) {
-            infoCandidato.setText("Mostrar candidato ganador aquí");
+            VentanaCandidatoGanador ventanaCandidatoGanador = new VentanaCandidatoGanador();
+            ventanaCandidatoGanador.setVisible(true);
         } else if (e.getSource() == ciudadCandidato) {
             infoCandidato.setText("Mostrar ciudades con menos candidatos aquí");
         } else if (e.getSource() == partidosCandidato) {
