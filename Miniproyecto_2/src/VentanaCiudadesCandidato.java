@@ -8,7 +8,7 @@ import javax.swing.JTextArea;
 
 public class VentanaCiudadesCandidato extends JFrame {
 
-    JTextArea ciudadesaArea;
+    JTextArea ciudadesaArea = new JTextArea();
     StringBuilder texto = new StringBuilder();
 
     public VentanaCiudadesCandidato(){
@@ -39,7 +39,7 @@ public class VentanaCiudadesCandidato extends JFrame {
         setTitle("Ciudades con menos candidatos");
         ciudadesaArea.setText(texto.toString());
         add(ciudadesaArea);
-        setSize(400, 500);
+        setSize(400, 300);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
