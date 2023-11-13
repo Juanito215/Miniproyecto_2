@@ -146,6 +146,9 @@ public class VentanaRegistrarCandidatos extends JFrame implements ActionListener
                 cedulaText.setText("");
                 promesasText.setText("");
                 votosText.setText("");
+                ideologia.setSelectedIndex(0);
+                partidos.setSelectedIndex(0);
+                ciudad.setSelectedIndex(0);
 
             } catch (RuntimeException ex) {
                 // Mostrar un mensaje indicando que se ha producido una excepción
