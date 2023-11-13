@@ -142,7 +142,11 @@ public class VentanaRegistrarCandidatos extends JFrame implements ActionListener
                 Candidato candidato = new Candidato(ideologiaSeleccionada, partidoSeleccionado, votos, promesas, nombre, cedula, ciudadSeleccionada );
                 listaCandidato.add(candidato);
                 
-            
+                nombreText.setText("");
+                cedulaText.setText("");
+                promesasText.setText("");
+                votosText.setText("");
+
             } catch (RuntimeException ex) {
                 // Mostrar un mensaje indicando que se ha producido una excepción
                 JOptionPane.showMessageDialog(this, "No se desde cuando los votos pueden llevar letras", "Error", JOptionPane.ERROR_MESSAGE);
