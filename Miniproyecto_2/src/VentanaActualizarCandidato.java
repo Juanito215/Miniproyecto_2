@@ -43,22 +43,21 @@ public class VentanaActualizarCandidato extends JFrame {
         contenedor.add(candidatoActualizar);
 
         buscar = new JButton("Buscar");
-        contenedor.add(buscar);        
+        contenedor.add(buscar);  
+        actualizar = new JButton("Actualizar");      
     
     buscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Lógica para buscar la cédula en la lista de candidatos
                 String cedulaBuscar = candidatoActualizar.getText();
                 Candidato candidatoEncontrado = buscarCandidatoPorCedula(cedulaBuscar);
 
                 if (candidatoEncontrado != null) {
-                    // Cédula encontrada, ahora puedes desplegar la lista o ComboBox
+                    // Cédula encontrada
                     mostrarOpciones();
                 } else {
-                    // Cédula no encontrada, puedes mostrar un mensaje de error
                     JOptionPane.showMessageDialog(VentanaActualizarCandidato.this,
-                            "Ese candidato no existe!\n Revisa bien si pusiste un numero de mas o te comiste algun numero", "Error", JOptionPane.ERROR_MESSAGE);
+                        "Ese candidato no existe!\n Revisa bien si pusiste un numero de mas o te comiste algun numero", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -73,42 +72,34 @@ public class VentanaActualizarCandidato extends JFrame {
         return null;
     }
         public void mostrarOpciones() {
-        String[] opciones = {"Seleccionar","Actualizar Nombre", "Actualizar Promesas", "Actualizar votos", "Actualizar ciudad", "Actualizar Ideologia", "Actualizar Partido"};
+            String[] opciones = {"Seleccionar","Actualizar Nombre", "Actualizar Promesas", "Actualizar votos", "Actualizar ciudad", "Actualizar Ideologia", "Actualizar Partido"};
 
-        opcionesActualizar = new JComboBox<>(opciones);
+            opcionesActualizar = new JComboBox<>(opciones);
+            contenedor.add(opcionesActualizar);
 
-        contenedor.add(opcionesActualizar);
+            actualizar = new JButton("Actualizar");
+            actualizar.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e){
+                    String opcionSeleccionada = (String) opcionesActualizar.getSelectedItem();
 
-
-        actualizar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e){
-                String opcionSeleccionada = (String) opcionesActualizar.getSelectedItem();
-                JTextField actualizarGeneral = null; //Almacenar el JTextField
-                contenedor.removeAll(); //Quita los componentes anteriores
-
-                if (opcionSeleccionada.equals("Actualizar Nombre")){
-                    actualizarGeneral = new JTextField(15);
-                    contenedor.add(new JLabel("Nuevo Nombre"));
-                }else if (opcionSeleccionada.equals("Actualizar Promesas")){
-                    actualizarGeneral = new JTextField(15);
-                    contenedor.add(new JLabel("Nuevas promesas"));
-                }else if (opcionSeleccionada.equals("Actualizar Votos")){
-                    actualizarGeneral = new JTextField(15);
-                    contenedor.add(new JLabel("Votos Actualizados"));
+                    if (opcionSeleccionada.equals("Actualizar Nombre")){
+                        nombreActualizar = new JTextField(15);
+                        contenedor.add(new JLabel("Nuevo Nombre"));
+                        contenedor.add(new JTextField());
+                    }else if (opcionSeleccionada.equals("Actualizar Promesas")){
+                        promesasActualizar = new JTextField(15);
+                        contenedor.add(new JLabel("Nuevas promesas"));
+                        contenedor.add(new JTextField());
+                    }else if (opcionSeleccionada.equals("Actualizar Votos")){
+                        votosActualizar = new JTextField(15);
+                        contenedor.add(new JLabel("Votos Actualizados"));
+                        contenedor.add(new JTextField());
+                    }
                 }
-                if (actualizarGeneral !=null){
-                    contenedor.add(actualizarGeneral);
-                }
-                actualizar = new JButton("Actualizar");
-                contenedor.add(opcionesActualizar);
-                contenedor.add(actualizar);
-
-
-            }
         });
+        contenedor.add(actualizar);
         revalidate();
         repaint();
     }
 }
-

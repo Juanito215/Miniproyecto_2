@@ -138,4 +138,6 @@ public class App extends JFrame implements ActionListener {
             infoCandidato.setText("Mostrar partidos con más candidatos aquí");
         }
     }
+
 }
+

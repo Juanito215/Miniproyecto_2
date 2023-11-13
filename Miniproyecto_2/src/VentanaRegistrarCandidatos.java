@@ -141,6 +141,7 @@ public class VentanaRegistrarCandidatos extends JFrame implements ActionListener
 
                 Candidato candidato = new Candidato(ideologiaSeleccionada, partidoSeleccionado, votos, promesas, nombre, cedula, ciudadSeleccionada );
                 listaCandidato.add(candidato);
+                System.out.println(listaCandidato);
             
             } catch (RuntimeException ex) {
                 // Mostrar un mensaje indicando que se ha producido una excepción

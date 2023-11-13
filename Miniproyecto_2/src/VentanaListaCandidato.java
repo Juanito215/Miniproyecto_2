@@ -1,10 +1,15 @@
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
 public class VentanaListaCandidato extends JFrame{
+    static ArrayList<Candidato> listaCandidato;
 
-    public VentanaListaCandidato(){
-        
+
+    public VentanaListaCandidato() {
+
+
         
         JTextArea textArea = new JTextArea();
         StringBuilder candidatosTexto = new StringBuilder();
