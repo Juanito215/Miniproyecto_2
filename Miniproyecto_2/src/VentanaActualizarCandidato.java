@@ -22,15 +22,12 @@ public class VentanaActualizarCandidato extends JFrame implements ActionListener
     JMenuBar opcionBar;
     JMenu opcionesActualizar;
     JMenuItem actualizarNombre, actualizarPromesas, actualizarVotos, actualizarCiudad, actualizarIdeologia, actualizarPartido;
-    Candidato  candidatoNew;
-    Ciudades ciudadActualizada;
-    Ideologia ideologiaActualizada;
-    Partidos partidoActualizado;
 
-    String nombre, cedulaBuscar, opcionSeleccionada, nombreActualizado, promesasActualizada, cedulaActualizada, votosActualizada;
+
+    String nombre, cedulaBuscar, opcionSeleccionada;
     String cedula;
     String promesas;
-    int votos, nuevosVotos;
+    int votos;
     Ideologia ideologiaSeleccionada;
     Ciudades ciudadSeleccionada;
     Partidos partidoSeleccionado;
@@ -56,7 +53,6 @@ public class VentanaActualizarCandidato extends JFrame implements ActionListener
         buscar.addActionListener(this);
         contenedor.add(buscar);
         actualizar = new JButton("Actualizar");
-        contenedor.add(nombreActualizar);
         
     }
 
@@ -69,7 +65,6 @@ public class VentanaActualizarCandidato extends JFrame implements ActionListener
             
             for (Candidato candidato :VentanaRegistrarCandidatos.listaCandidato) {
                 if(candidato.getCedula().equals(cedulaBuscar)){
-                    candidatoNew = candidato;
                     candidatoEncontrado = true;
                     break;
                 }
@@ -113,9 +108,7 @@ public class VentanaActualizarCandidato extends JFrame implements ActionListener
         if(e.getSource() == actualizarNombre){
             nombreActualizar = new JTextField(15);   
             contenedor.add(new JLabel("Nuevo Nombre"));
-            contenedor.removeAll();
             contenedor.add(nombreActualizar);
-            nombreActualizado = nombreActualizar.getText();
             contenedor.revalidate();
             contenedor.repaint();
             setVisible(true);
@@ -123,47 +116,34 @@ public class VentanaActualizarCandidato extends JFrame implements ActionListener
             promesasActualizar = new JTextField(15);
             contenedor.add(new JLabel("Nuevas promesas"));
             contenedor.add(promesasActualizar);
-            contenedor.add(actualizar);
-            promesasActualizada = promesasActualizar.getText();
             contenedor.revalidate();
             contenedor.repaint();
             setVisible(true);
         }else if(e.getSource() == actualizarVotos){
             votosActualizar = new JTextField(15);
             contenedor.add(new JLabel("Votos Actualizados"));
-            String votosString = votosActualizar.getText();
-            nuevosVotos = Integer.parseInt(votosString);
             contenedor.add(votosActualizar);
-            contenedor.add(actualizar);
             contenedor.revalidate();
             contenedor.repaint();
             setVisible(true);
         }else if(e.getSource() == actualizarCiudad){
             ciudadActualizar = new JComboBox<>(Ciudades.values());
             contenedor.add(ciudadActualizar);
-            contenedor.add(actualizar);
             contenedor.revalidate();
             contenedor.repaint();
-            ciudadActualizada = (Ciudades) ciudadActualizar.getSelectedItem();
             setVisible(true);
         }else if(e.getSource() == actualizarIdeologia){
             ideologiaActualizar = new JComboBox<>(Ideologia.values());
             contenedor.add(ideologiaActualizar);
-            contenedor.add(actualizar);
             contenedor.revalidate();
             contenedor.repaint();
-            ideologiaActualizada = (Ideologia) ideologiaActualizar.getSelectedItem();
             setVisible(true);
         }else if(e.getSource() == actualizarPartido){
             partidoActualizar = new JComboBox<>(Partidos.values());
             contenedor.add(partidoActualizar);
-            contenedor.add(actualizar);
             contenedor.revalidate();
             contenedor.repaint();
-            partidoActualizado = (Partidos) partidoActualizar.getSelectedItem();
             setVisible(true);
         }
-        candidatoNew = new Candidato(ideologiaActualizada, partidoActualizado, nuevosVotos, promesasActualizada, nombreActualizado, cedulaActualizada, ciudadActualizada);
-        VentanaRegistrarCandidatos.listaCandidato.add(candidatoNew);
-    } 
+    }
 }
