@@ -108,7 +108,7 @@ public class App extends JFrame implements ActionListener {
     actualizarCandidato.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            VentanaActualizarCandidato ventanaActualizar = new VentanaActualizarCandidato(listaCandidato);
+            VentanaActualizarCandidato ventanaActualizar = new VentanaActualizarCandidato();
             ventanaActualizar.setVisible(true);
             }
         });
