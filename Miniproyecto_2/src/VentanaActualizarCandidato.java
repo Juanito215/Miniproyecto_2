@@ -17,17 +17,21 @@ public class VentanaActualizarCandidato extends JFrame implements ActionListener
     FlowLayout layout;
     JLabel etiquetaActualizar;
     JTextField candidatoActualizar, nombreActualizar, promesasActualizar, votosActualizar;
-    JButton buscar, actualizar;
+    JButton buscar, botonActualizarNombre, botonActualizarPromesas, botonActualizarVotos, botonActualizarCiudades, botonActualizarIdeologia, botonActualizarPartido ;
     JComboBox  ideologiaActualizar, partidoActualizar, ciudadActualizar;
     JMenuBar opcionBar;
     JMenu opcionesActualizar;
     JMenuItem actualizarNombre, actualizarPromesas, actualizarVotos, actualizarCiudad, actualizarIdeologia, actualizarPartido;
+    Candidato candidatoNew;
+    Ciudades ciudadActualizada;
+    Partidos partidoActualizado;
+    Ideologia ideologiaActualizada;
+    boolean candidatoEncontrado = false;
 
-
-    String nombre, cedulaBuscar, opcionSeleccionada;
+    String nombre, cedulaBuscar, opcionSeleccionada, nombreActualizado, promesasActualizadas, votoString;
     String cedula;
     String promesas;
-    int votos;
+    int votos, votosActualizados;
     Ideologia ideologiaSeleccionada;
     Ciudades ciudadSeleccionada;
     Partidos partidoSeleccionado;
@@ -48,20 +52,64 @@ public class VentanaActualizarCandidato extends JFrame implements ActionListener
         candidatoActualizar = new JTextField(15);
         contenedor.add(etiquetaActualizar);
         contenedor.add(candidatoActualizar);
-
+        
+        
         buscar = new JButton("Buscar");
         buscar.addActionListener(this);
         contenedor.add(buscar);
-        actualizar = new JButton("Actualizar");
         
+        botonActualizarNombre = new JButton("Actualizar Nombre");
+        botonActualizarNombre.addActionListener(this);
+        contenedor.add(botonActualizarNombre);
+        botonActualizarNombre.setVisible(false);
+
+        botonActualizarPromesas = new JButton("Actualizar Promesas");
+        botonActualizarPromesas.addActionListener(this);
+        contenedor.add(botonActualizarPromesas);
+        botonActualizarPromesas.setVisible(false);
+
+        botonActualizarVotos = new JButton("Actualizar Votos");
+        botonActualizarVotos.addActionListener(this);
+        contenedor.add(botonActualizarVotos);
+        botonActualizarVotos.setVisible(false);
+
+        botonActualizarCiudades = new JButton("Actualizar Ciudad");
+        botonActualizarCiudades.addActionListener(this);
+        contenedor.add(botonActualizarCiudades);
+        botonActualizarCiudades.setVisible(false);
+
+        botonActualizarIdeologia = new JButton("Actualizar Ideologia");
+        botonActualizarIdeologia.addActionListener(this);
+        contenedor.add(botonActualizarIdeologia);
+        botonActualizarIdeologia.setVisible(false);
+        
+        botonActualizarPartido = new JButton("Actualizar Partido");
+        botonActualizarPartido.addActionListener(this);
+        contenedor.add(botonActualizarPartido);
+        botonActualizarPartido.setVisible(false);
+        
+        
+    }
+
+    public Candidato buscarCandidatoPorCedula(){
+        cedulaBuscar = candidatoActualizar.getText();
+        for (Candidato candidato :VentanaRegistrarCandidatos.listaCandidato) {
+                if(candidato.getCedula().equals(cedulaBuscar)){
+                    candidatoNew = candidato;
+                    break;
+                }
+            }
+        return candidatoNew;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        cedulaBuscar = candidatoActualizar.getText();
-        boolean candidatoEncontrado = false;
+        
+        
         
         if(e.getSource() == buscar){
+
+            buscarCandidatoPorCedula();
             
             for (Candidato candidato :VentanaRegistrarCandidatos.listaCandidato) {
                 if(candidato.getCedula().equals(cedulaBuscar)){
@@ -74,12 +122,14 @@ public class VentanaActualizarCandidato extends JFrame implements ActionListener
                     opcionesActualizar = new JMenu("Opciones Actualizar");
                     opcionBar.add(opcionesActualizar);
 
+                    
                     actualizarNombre = new JMenuItem("Actualizar Nombre");
                     actualizarPromesas = new JMenuItem("Actualizar Promesas");
                     actualizarVotos = new JMenuItem("Actualizar Votos");
                     actualizarCiudad = new JMenuItem("Actualizar Ciudades");
                     actualizarIdeologia = new JMenuItem("Actualizar Ideologia");
                     actualizarPartido = new JMenuItem("Actualizar Partido");
+
 
                     actualizarNombre.addActionListener(this);
                     actualizarPromesas.addActionListener(this);
@@ -111,6 +161,7 @@ public class VentanaActualizarCandidato extends JFrame implements ActionListener
             contenedor.add(nombreActualizar);
             contenedor.revalidate();
             contenedor.repaint();
+            botonActualizarNombre.setVisible(true);
             setVisible(true);
         }else if(e.getSource() == actualizarPromesas){
             promesasActualizar = new JTextField(15);
@@ -118,6 +169,7 @@ public class VentanaActualizarCandidato extends JFrame implements ActionListener
             contenedor.add(promesasActualizar);
             contenedor.revalidate();
             contenedor.repaint();
+            botonActualizarPromesas.setVisible(true);
             setVisible(true);
         }else if(e.getSource() == actualizarVotos){
             votosActualizar = new JTextField(15);
@@ -125,25 +177,72 @@ public class VentanaActualizarCandidato extends JFrame implements ActionListener
             contenedor.add(votosActualizar);
             contenedor.revalidate();
             contenedor.repaint();
+            botonActualizarVotos.setVisible(true);
             setVisible(true);
         }else if(e.getSource() == actualizarCiudad){
             ciudadActualizar = new JComboBox<>(Ciudades.values());
             contenedor.add(ciudadActualizar);
             contenedor.revalidate();
             contenedor.repaint();
+            botonActualizarCiudades.setVisible(true);
             setVisible(true);
         }else if(e.getSource() == actualizarIdeologia){
             ideologiaActualizar = new JComboBox<>(Ideologia.values());
             contenedor.add(ideologiaActualizar);
             contenedor.revalidate();
             contenedor.repaint();
+            botonActualizarIdeologia.setVisible(true);
             setVisible(true);
         }else if(e.getSource() == actualizarPartido){
             partidoActualizar = new JComboBox<>(Partidos.values());
             contenedor.add(partidoActualizar);
             contenedor.revalidate();
             contenedor.repaint();
+            botonActualizarPartido.setVisible(true);
             setVisible(true);
         }
+        
+        if(e.getSource() == botonActualizarNombre){
+            nombreActualizado = nombreActualizar.getText();
+        }else{
+            nombreActualizado = buscarCandidatoPorCedula().getNombre();
+        }
+
+        if(e.getSource() == botonActualizarPromesas){
+            promesasActualizadas = promesasActualizar.getText();
+        }else{
+            promesasActualizadas = buscarCandidatoPorCedula().getPromesas();
+        }
+        if(e.getSource() == botonActualizarVotos){
+            votoString = votosActualizar.getText();
+            votosActualizados = Integer.parseInt(votoString);
+        }else{
+            votosActualizados = buscarCandidatoPorCedula().getVotos();
+        }
+        if(e.getSource() == botonActualizarCiudades){
+            ciudadActualizada = (Ciudades) ciudadActualizar.getSelectedItem();
+        }else{
+            ciudadActualizada = buscarCandidatoPorCedula().getCiudad();
+        }
+        if(e.getSource() == botonActualizarIdeologia){
+            ideologiaActualizada = (Ideologia) ideologiaActualizar.getSelectedItem();
+        }else{
+            ideologiaActualizada = buscarCandidatoPorCedula().getIdeologia();
+        }
+        if(e.getSource() == botonActualizarPartido ){
+            partidoActualizado = (Partidos) partidoActualizar.getSelectedItem();
+        }else{
+            partidoActualizado = buscarCandidatoPorCedula().getPartido();
+        }
+
+        cedula = cedulaBuscar;
+        candidatoNew = new Candidato(ideologiaActualizada, partidoActualizado, votosActualizados, promesasActualizadas, nombreActualizado, cedula, ciudadActualizada);
+        for (int i = 0; i < VentanaRegistrarCandidatos.listaCandidato.size(); i++) {
+            if (VentanaRegistrarCandidatos.listaCandidato.get(i).getCedula().equals(cedulaBuscar)) {
+                VentanaRegistrarCandidatos.listaCandidato.set(i, candidatoNew);
+                break;
+            }
+        }
+        
     }
-}
+}       

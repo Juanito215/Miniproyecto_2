@@ -19,6 +19,7 @@ public class VentanaListaCandidato extends JFrame{
             candidatosTexto.append("Promesas: ").append(candidato.getPromesas()).append("\n");
             candidatosTexto.append("Votos: ").append(candidato.getVotos()).append("\n");
             candidatosTexto.append("Ciudad: ").append(candidato.getCiudad()).append("\n");
+            candidatosTexto.append("Ideologia: ").append(candidato.getIdeologia()).append("\n");
             candidatosTexto.append("Partido: ").append(candidato.getPartido()).append("\n\n");
         }
 
