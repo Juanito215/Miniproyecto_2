@@ -204,6 +204,10 @@ public class VentanaActualizarCandidato extends JFrame implements ActionListener
         
         if(e.getSource() == botonActualizarNombre){
             nombreActualizado = nombreActualizar.getText();
+            if (contieneNumeros(nombreActualizado)){
+                JOptionPane.showMessageDialog(VentanaActualizarCandidato.this, "Porfa no introduzcas numeros en el nombre que si no se cae el programa \n hagame ese gran favor no solo a mi sino tambien al programa", "Error", JOptionPane.ERROR_MESSAGE);;
+                return;
+            }
         }else{
             nombreActualizado = buscarCandidatoPorCedula().getNombre();
         }
@@ -215,21 +219,35 @@ public class VentanaActualizarCandidato extends JFrame implements ActionListener
         }
         if(e.getSource() == botonActualizarVotos){
             votoString = votosActualizar.getText();
-            votosActualizados = Integer.parseInt(votoString);
+            if (!contieneLetras(votoString)){
+                JOptionPane.showMessageDialog(VentanaActualizarCandidato.this, "No se desde cuando los votos llevan letras fiera \n Pon los votos solo con numeros pues como vas a contar letras como votos (El algebra no cuenta en este caso)", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            } votosActualizados = Integer.parseInt(votoString);
         }else{
             votosActualizados = buscarCandidatoPorCedula().getVotos();
         }
         if(e.getSource() == botonActualizarCiudades){
+            if (ciudadActualizar.getSelectedIndex() == 0){
+                mostrarExcepcionSeleccionarCiudad("Dale selecciona una opcion diferente.");
+                return;
+            } 
             ciudadActualizada = (Ciudades) ciudadActualizar.getSelectedItem();
         }else{
             ciudadActualizada = buscarCandidatoPorCedula().getCiudad();
         }
         if(e.getSource() == botonActualizarIdeologia){
+            if(ideologiaActualizar.getSelectedIndex() == 0){
+                mostrarExcepcionSeleccionarIdeologia("Selecciona una opcion diferente.");
+                return;
+            }
             ideologiaActualizada = (Ideologia) ideologiaActualizar.getSelectedItem();
         }else{
             ideologiaActualizada = buscarCandidatoPorCedula().getIdeologia();
         }
         if(e.getSource() == botonActualizarPartido ){
+            if(partidoActualizar.getSelectedIndex() == 0){
+                mostrarExcepcionSeleccionarPartido("Selecciona otra opcion diferente a esa.");
+            }
             partidoActualizado = (Partidos) partidoActualizar.getSelectedItem();
         }else{
             partidoActualizado = buscarCandidatoPorCedula().getPartido();
@@ -242,7 +260,20 @@ public class VentanaActualizarCandidato extends JFrame implements ActionListener
                 VentanaRegistrarCandidatos.listaCandidato.set(i, candidatoNew);
                 break;
             }
-        }
-        
+        }    
+    }private boolean contieneNumeros(String nombre){
+        return nombre.matches(".*\\d+.*");
+    }
+    private boolean contieneLetras(String cadena){
+        return cadena.matches("\\d+");
+    }
+    private void mostrarExcepcionSeleccionarPartido(String mensaje){
+        JOptionPane.showMessageDialog(VentanaActualizarCandidato.this, "Que curiosa eleccion del partido politico \n No creo que exista así que selecciona otro. ", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    private void mostrarExcepcionSeleccionarIdeologia(String mensaje){
+        JOptionPane.showMessageDialog(VentanaActualizarCandidato.this, "Curiosa eleccion de ideologia. \n En colombia no existe esa ideologia pero tranqui, cuando exista lo actualizaremos.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    private void mostrarExcepcionSeleccionarCiudad(String mensaje){
+        JOptionPane.showMessageDialog(VentanaActualizarCandidato.this, "Ineresante eleccion de ciudad. \n No creo que exista :)", "Error", JOptionPane.ERROR_MESSAGE);
     }
 }       
